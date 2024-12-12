@@ -76,6 +76,7 @@ subregions_simplified<-rmapshaper::ms_simplify(subregions,keep=0.01) #simplify r
 #joining shapefile to data file
 map_sr_data<-subgrid_cleaned%>%
   left_join(subregions_simplified,by=c("SUBRGN"="ZipSubregi")) #join by SUBRGN and ZipSubregi
+map_sr_data<-st_as_sf(map_sr_data)
 
 #pull in state shape file from Tigris
 us_states<-tigris::states(cb=TRUE,resolution="20m")
@@ -83,3 +84,4 @@ us_states<-tigris::states(cb=TRUE,resolution="20m")
 #joining shapefile to data
 map_st_data<-state_cleaned%>%
   left_join(us_states,by=c("PSTATABB"="STUSPS")) # STUSPS is the state abbreviation
+map_st_data<-st_as_sf(map_st_data) #convert to sf object
