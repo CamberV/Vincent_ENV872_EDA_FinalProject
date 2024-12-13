@@ -2,6 +2,7 @@ library(shiny)
 
 ui<-fluidPage(
   titlePanel("Visualizing eGRID Data"),
+  h4("ENV872 Final Project by Camber Vincent"), #add subtitle
   
   sidebarLayout(
     sidebarPanel(
@@ -22,7 +23,6 @@ ui<-fluidPage(
         label="Select Pollutant:",
         choices=c("CO2","NOX","SO2","CH4","N2O","CO2eq"="C2E")
       ),
-      textOutput("selection_summary")
     ),
     
     mainPanel(
