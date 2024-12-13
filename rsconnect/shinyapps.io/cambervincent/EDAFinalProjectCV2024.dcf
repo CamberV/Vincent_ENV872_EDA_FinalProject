@@ -1,13 +1,12 @@
 name: EDAFinalProjectCV2024
-title: EDA Final Project
+title: EDAFinalProjectCV2024
 username: cambervincent
 account: cambervincent
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13587172
-bundleId: 9514605
+bundleId: 9514666
 url: https://cambervincent.shinyapps.io/EDAFinalProjectCV2024/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: README.md
