@@ -41,10 +41,10 @@ ui<-fluidPage(
     
     mainPanel(
       h3("Map Visualization"),
-      plotOutput("map_plot"),
+      plotOutput("map_plot",height="500px"),
       
       h3("Bar Chart"),
-      plotOutput("bar_chart")
+      plotOutput("bar_chart",height="400px")
     )
   )
 )

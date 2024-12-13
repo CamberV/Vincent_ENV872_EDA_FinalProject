@@ -3,6 +3,7 @@ library(sf)
 library(ggplot2)
 library(dplyr)
 library(viridis)
+library(patchwork)
 
 server<-function(input, output, session){
   
@@ -25,11 +26,18 @@ server<-function(input, output, session){
   output$map_plot<-renderPlot({
     map_data<-selected_data()
     unit<-ifelse(input$emission_rate=="RA","lb/MMBtu","lb/MWh") #define unit based on input
-    
+
     ggplot(data=map_data)+
-      geom_sf(aes(fill=value),color="black")+
-      coord_sf(xlim=c(-180,-60))+ #restricting longitude
+      geom_sf(aes(fill=value),color="black")+ #map data
+      geom_sf_label( #add labels
+        aes(label=if(input$geo_level=="SR") SUBRGN else PSTATABB), #select label based on input
+        size=3,
+        fill="white",
+        label.size=0.3
+        )+ 
+      coord_sf(xlim=c(-130,-65),ylim=c(25,50))+ #restricting to contiguous US for visual clarity
       scale_fill_viridis_c(option="C",name=unit)+ #setting color scale
+      labs(x=NULL,y=NULL)+ #removing unnecessary axis titles
       theme_minimal()
   })
   
@@ -39,7 +47,7 @@ server<-function(input, output, session){
     unit<-ifelse(input$emission_rate=="RA","lb/MMBtu","lb/MWh") #define unit based on input
     
     map_data<-map_data%>%
-      arrange(
+      arrange( #arranging data if user selects
         if(input$sort_order=="Descending by Value") desc(value)
       )
     
@@ -51,11 +59,17 @@ server<-function(input, output, session){
                         if (input$geo_level=="SR") SUBRGN else PSTATABB)
       ))
     
-    ggplot(data=map_data)+
+    ggplot(data=map_data)+ #map data
       geom_bar(aes(x=x_axis,
                    y=value,
                    fill=value),
                stat="identity")+
+      geom_text(
+        aes(x=x_axis,
+            y=value,
+            label=round(value,2)),
+        vjust=-0.5,size=3 #labeling bars
+      )+
       labs(
         x=ifelse(input$geo_level=="SR","Subregion","State"),
         y=unit,
