@@ -32,9 +32,13 @@ The primary dataset used in this visualization was the EPA's eGRID database whic
 
 ## Folder structure
 
-• **Data Folder**: includes all accessed raw data from the EPA, including the original eGRID 2022 data and associated subregion shapefiles.
+**Data Folders**:
 
-• **rsconnect Folder**: includes relevant .dcf file to connect the produced ShinyApp from a personal RStudio hub to a cloud hub, making the final Shiny app accessible online.
+• *Raw Data*: includes all accessed raw data from the EPA, including the original eGRID 2022 data and associated subregion shapefiles.
+
+• *Processed Data*: a final simplified version of the EPA subregion shape file processed in the server, exported, then removed in order to reduce runtime and sucessfully publish the Shiny dashboard.
+
+**rsconnect Folder**: includes relevant .dcf file to connect the produced ShinyApp from a personal RStudio hub to a cloud hub, making the final Shiny app accessible online.
 
 ## Metadata
 
