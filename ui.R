@@ -6,6 +6,15 @@ ui<-fluidPage(
   
   sidebarLayout(
     sidebarPanel(
+      helpText(HTML(
+        "This dashboard visualizes the US EPA's Emissions & Generation Resource Integrated Database 
+        for different geographic levels, pollutants, and emission rate types. Use the dropdowns below
+        to explore subregion or state-level emissions for 2022. See the associated information about this 
+        project at 
+        <a href='https://github.com/CamberV/Vincent_ENV872_EDA_FinalProject'>
+        the following GitHub repository</a>.")
+      ),
+      
       selectInput(
         inputId="geo_level",
         label="Select Geographic Level:",
@@ -27,7 +36,6 @@ ui<-fluidPage(
         inputId="sort_order",
         label="Bar Chart Sort Order:",
         choices=c("Alphabetical", "Descending by Value")
-        #selected="Alphabetical"
       ),
     ),
     

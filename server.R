@@ -30,7 +30,6 @@ server<-function(input, output, session){
       geom_sf(aes(fill=value),color="black")+
       coord_sf(xlim=c(-180,-60))+ #restricting longitude
       scale_fill_viridis_c(option="C",name=unit)+ #setting color scale
-      labs(title="Emission Map") +
       theme_minimal()
   })
   
@@ -58,7 +57,6 @@ server<-function(input, output, session){
                    fill=value),
                stat="identity")+
       labs(
-        title="Emission Bar Chart",
         x=ifelse(input$geo_level=="SR","Subregion","State"),
         y=unit,
         fill=unit
