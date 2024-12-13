@@ -23,6 +23,12 @@ ui<-fluidPage(
         label="Select Pollutant:",
         choices=c("CO2","NOX","SO2","CH4","N2O","CO2eq"="C2E")
       ),
+      selectInput(
+        inputId="sort_order",
+        label="Bar Chart Sort Order:",
+        choices=c("Alphabetical", "Descending by Value")
+        #selected="Alphabetical"
+      ),
     ),
     
     mainPanel(

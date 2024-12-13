@@ -7,7 +7,7 @@ library(viridis)
 server<-function(input, output, session){
   
   #reactive data selection based on user input
-  selected_data <- reactive({
+  selected_data<-reactive({
     
     #select which sf data file to visualize based on regional level
     map_data<-if(input$geo_level=="SR")map_sr_data else map_st_data
@@ -17,7 +17,7 @@ server<-function(input, output, session){
     
     #re-titling selected data as a new column "data"
     map_data<-map_data%>%
-      mutate(value =.[[column_name]]) #select column based on previous line
+      mutate(value=.[[column_name]]) #select column based on previous line
     map_data
   })
   
@@ -39,9 +39,23 @@ server<-function(input, output, session){
     map_data<-selected_data()
     unit<-ifelse(input$emission_rate=="RA","lb/MMBtu","lb/MWh") #define unit based on input
     
+    map_data<-map_data%>%
+      arrange(
+        if(input$sort_order=="Descending by Value") desc(value)
+      )
+    
+    #error fix to maintain sort order by setting x_axis as manual factor
+    map_data<-map_data%>%
+      mutate(x_axis=factor(
+                    if (input$geo_level=="SR") SUBRGN else PSTATABB,
+                    levels=unique(
+                        if (input$geo_level=="SR") SUBRGN else PSTATABB)
+      ))
+    
     ggplot(data=map_data)+
-      geom_bar(aes(x=if(input$geo_level=="SR") SUBRGN else PSTATABB,
-                   y=value,fill=value),
+      geom_bar(aes(x=x_axis,
+                   y=value,
+                   fill=value),
                stat="identity")+
       labs(
         title="Emission Bar Chart",
