@@ -72,6 +72,7 @@ state_cleaned<-state_data%>%
 subregions<-st_read("Data/Raw/egrid_subregions/eGRID2022_Subregions.shp")
 subregions<-st_make_valid(subregions) #fix presence of invalid subregions
 subregions_simplified<-rmapshaper::ms_simplify(subregions,keep=0.01) #simplify regions, datafile too large
+st_write(subregions_simplified,"Data/Processed/subregions_simplified.shp")
 
 #joining shapefile to data file
 map_sr_data<-subgrid_cleaned%>%
